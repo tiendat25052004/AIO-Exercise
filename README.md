@@ -1,2 +1,2 @@
-## 📝 AIO-381 Trương Tiến Đạt
+## 📝 AIO-381 Truong Tien Dat
 Welcome to my assignment repo for AIO homeword!
