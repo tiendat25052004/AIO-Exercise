@@ -21,4 +21,4 @@ def compute_levenstein_distance(s1, s2):
 source = "kitten"
 target = "sitting"
 
-print(compute_levenstein_distance(source, target))
+print(compute_levenstein_distance("hola", "hello"))
