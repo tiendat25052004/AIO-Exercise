@@ -1,0 +1,54 @@
+import numpy as np
+import cv2
+
+
+class BackgroundSubtraction:
+    def __init__(self, green_bg_path, new_bg_path, object_path):
+        self.green_bg = cv2.imread(green_bg_path, 1)
+        self.new_bg = cv2.imread(new_bg_path, 1)
+        self.object_img = cv2.imread(object_path, 1)
+
+        self.resize_images()
+
+    def resize_images(self, size=(678, 381)):
+        self.green_bg = cv2.resize(self.green_bg, size)
+        self.new_bg = cv2.resize(self.new_bg, size)
+        self.object_img = cv2.resize(self.object_img, size)
+
+    def compute_difference(self, bg_img, input_img):
+        difference = cv2.absdiff(bg_img, input_img)
+        difference_gray = cv2.cvtColor(difference, cv2.COLOR_BGR2GRAY)
+        return difference_gray
+
+    def compute_binary_mask(self, difference_single_channel):
+        _, binary_mask = cv2.threshold(
+            difference_single_channel, 10, 255, cv2.THRESH_BINARY)
+        return binary_mask
+
+    def replace_background(self):
+        difference_single_channel = self.compute_difference(
+            self.green_bg, self.object_img)
+        binary_mask = self.compute_binary_mask(difference_single_channel)
+
+        # Expand dimensions of the binary mask to match the number of channels in the images
+        binary_mask = cv2.cvtColor(binary_mask, cv2.COLOR_GRAY2BGR)
+
+        output = np.where(binary_mask == 255, self.object_img, self.new_bg)
+        return output
+
+    def save_output(self, output_path):
+        output = self.replace_background()
+        cv2.imwrite(output_path, output)
+        print(f"Output image saved to {output_path}")
+
+
+# Example usage:
+if __name__ == "__main__":
+    green_bg_path = 'module_2/week2/GreenBackground.png'
+    new_bg_path = 'module_2/week2/NewBackground.jpg'
+    object_path = 'module_2/week2/Object.png'
+    output_path = 'module_2/week2/OutputImage.png'
+
+    bg_subtraction = BackgroundSubtraction(
+        green_bg_path, new_bg_path, object_path)
+    bg_subtraction.save_output(output_path)
