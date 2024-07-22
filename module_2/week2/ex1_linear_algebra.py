@@ -32,7 +32,7 @@ class LA:  # LinearAlgebra
         """Tính giá trị riêng và vector riêng của ma trận"""
         eig_vals, eig_vecs = np.linalg.eig(mat)
         return eig_vals, eig_vecs
-    
+
     @staticmethod
     def cos(vec1: np.ndarray, vec2: np.ndarray) -> float:
         """Tính cos giữa hai vector"""
