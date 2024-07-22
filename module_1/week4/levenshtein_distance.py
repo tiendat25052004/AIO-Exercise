@@ -37,7 +37,7 @@ def load_vocab(file_path):
     return words
 
 
-vocabs = load_vocab('D:/AIKhông/AIO-Exercise/module_1/week4/data/vocab.txt')
+vocabs = load_vocab('module_1/week4/data/vocab.txt')
 
 
 def main():
