@@ -4,7 +4,8 @@ from sklearn.model_selection import train_test_split
 from models.decision_tree import train_decision_tree
 from models.random_forest import train_random_forest
 from evaluation.metrics import evaluate_model
-
+from models.gradient_boost import train_gradient_boost
+from models.adaboost import train_adaboost
 # Tải dữ liệu
 df = load_data('module_3\week4\data\Housing.csv')
 
@@ -22,3 +23,8 @@ evaluate_model(dt_model, X_val, y_val)
 rf_model = train_random_forest(X_train, y_train)
 print("Random Forest Evaluation:")
 evaluate_model(rf_model, X_val, y_val)
+
+# Huấn luyện và đánh giá Gradient Boosting
+gd_model = train_gradient_boost(X_train, y_train)
+print("Gradient Boosting Evaluation:")
+evaluate_model(gd_model, X_val, y_val)
